@@ -41,28 +41,28 @@ public class DisplayDetailsActivity extends AppCompatActivity {
         String address = sharedPreferences.getString("Address", "");
         String state = sharedPreferences.getString("State", "");
 
-        button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog = new Dialog(DisplayDetailsActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.progress_bar_3);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
-
-                new CountDownTimer(5000, 1000) {
-                    @Override
-                    public void onTick(long l) {
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        dialog.dismiss();
-                    }
-                }.start();
-            }
-        });
+//        button3 = findViewById(R.id.button3);
+//        button3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog = new Dialog(DisplayDetailsActivity.this);
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                dialog.setContentView(R.layout.progress_bar_3);
+//                dialog.setCanceledOnTouchOutside(false);
+//                dialog.show();
+//
+//                new CountDownTimer(5000, 1000) {
+//                    @Override
+//                    public void onTick(long l) {
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        dialog.dismiss();
+//                    }
+//                }.start();
+//            }
+//        });
 
         TextView firstNameTextView = findViewById(R.id.firstNameTextView);
         TextView lastNameTextView = findViewById(R.id.lastNameTextView);

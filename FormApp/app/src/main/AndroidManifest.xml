@@ -31,5 +31,8 @@
         </activity>
         <activity android:name=".GoogleActivity">
         </activity>
+        <activity android:name=".LoginOption"   android:exported="true">
+
+        </activity>
     </application>
 </manifest>

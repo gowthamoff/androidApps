@@ -48,16 +48,17 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
 
-    private static final int RC_SIGN_IN = 1000;
+
     private TextView dateTextView;
     private ImageView selectedImageView;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
 
-    Button googleAuth;
-    FirebaseAuth auth;
-    FirebaseDatabase database;
-    GoogleSignInClient mGoogleSignInClient;
+//    Button googleAuth;
+//    FirebaseAuth auth;
+//    FirebaseDatabase database;
+//    GoogleSignInClient mGoogleSignInClient;
+//    private static final int RC_SIGN_IN = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,29 +71,29 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        googleAuth = findViewById(R.id.btnGoogleAuth);
-        auth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail().build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleAuth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                googleSignIn();
-            }
-        });
+//        googleAuth = findViewById(R.id.btnGoogleAuth);
+//        auth = FirebaseAuth.getInstance();
+//        database = FirebaseDatabase.getInstance();
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail().build();
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//        googleAuth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                googleSignIn();
+//            }
+//        });
         // Set "ProfileImage" to an empty string by default
         editor.putString("ProfileImage", "");
         editor.apply();
 
     }
 
-    private void googleSignIn(){
-        Intent intent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(intent,RC_SIGN_IN);
-    }
+//    private void googleSignIn(){
+//        Intent intent = mGoogleSignInClient.getSignInIntent();
+//        startActivityForResult(intent,RC_SIGN_IN);
+//    }
     private boolean areEditTextsEmpty() {
         EditText[] editTexts = {
                 findViewById(R.id.editfirst),
@@ -250,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(pickPhotoIntent, REQUEST_IMAGE_PICK);
     }
 
-    public void takePhoto(View view) {
+public void takePhoto(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -261,22 +262,22 @@ public class MainActivity extends AppCompatActivity {
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
 
-            if(requestCode == RC_SIGN_IN)
-            {
-                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                try {
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    firbaseAuth(account.getIdToken());
-                } catch (ApiException e) {
-                    // Handle specific Google Sign-In API exceptions
-                    Log.e("YourTag", "Google Sign-In API Exception: " + e.getStatusCode());
-                    Toast.makeText(this, "Google Sign-In Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    // Handle other exceptions
-                    Log.e("YourTag", "Exception: " + e.getMessage(), e);
-                    Toast.makeText(this, "An error occurred: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
+//            if(requestCode == RC_SIGN_IN)
+//            {
+//                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//                try {
+//                    GoogleSignInAccount account = task.getResult(ApiException.class);
+//                    firbaseAuth(account.getIdToken());
+//                } catch (ApiException e) {
+//                    // Handle specific Google Sign-In API exceptions
+//                    Log.e("YourTag", "Google Sign-In API Exception: " + e.getStatusCode());
+//                    Toast.makeText(this, "Google Sign-In Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    // Handle other exceptions
+//                    Log.e("YourTag", "Exception: " + e.getMessage(), e);
+//                    Toast.makeText(this, "An error occurred: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
 
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && data != null) {
@@ -306,25 +307,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-            private void firbaseAuth(String idToken) {
-                AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
-                auth.signInWithCredential(credential)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task){
-                                if(task.isSuccessful()){
-                                    FirebaseUser user = auth.getCurrentUser();
-                                    HashMap<String,Object> map = new HashMap<>();
-                                    map.put("id",user.getUid());
-                                    map.put("name",user.getDisplayName());
-                                    map.put("profile",user.getPhotoUrl().toString());
-                                    database.getReference().child("users").child(user.getUid()).setValue(map);
-                                    Intent intent = new Intent(MainActivity.this,GoogleActivity.class);
-                                    startActivity(intent);
-                                }else{
-                                    Toast.makeText(MainActivity.this,"something went wrong ",Toast.LENGTH_SHORT).show();
-                                }
-                        }
-                    });
-        }
+//    private void firbaseAuth(String idToken) {
+//        AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
+//        auth.signInWithCredential(credential)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task){
+//                        if(task.isSuccessful()){
+////                            FirebaseUser user = auth.getCurrentUser();
+////                            HashMap<String,Object> map = new HashMap<>();
+////                            map.put("id",user.getUid());
+////                            map.put("name",user.getDisplayName());
+////                            map.put("profile",user.getPhotoUrl().toString());
+////                            database.getReference().child("users").child(user.getUid()).setValue(map);
+//                            Intent intent = new Intent(MainActivity.this,GoogleActivity.class);
+//                            startActivity(intent);
+//                        }else{
+//                            Toast.makeText(MainActivity.this,"something went wrong ",Toast.LENGTH_SHORT).show();
+//                        }
+//                }
+//        });
+//    }
 }

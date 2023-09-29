@@ -138,7 +138,7 @@ public class PagerActivity extends AppCompatActivity {
 
 
     private void goToMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginOption.class);
         startActivity(intent);
         finish(); // Finish the PagerActivity so that the user cannot go back to it.
     }
