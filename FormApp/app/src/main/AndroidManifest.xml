@@ -19,7 +19,6 @@
         android:theme="@style/Theme.Form">
         <activity android:name=".MainActivity"
             android:exported="true">
-
         </activity>
         <activity android:name=".DisplayDetailsActivity" />
         <activity android:name=".PagerActivity"
@@ -29,9 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GoogleActivity">
-        </activity>
-        <activity android:name=".LoginOption"   android:exported="true">
+        <activity android:name=".LoginOption"   >
 
         </activity>
     </application>

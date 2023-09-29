@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -51,6 +52,7 @@ public class LoginOption extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 //        googleButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -90,12 +92,7 @@ public class LoginOption extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null) {
-                    firbaseAuth(account.getIdToken());
-                } else {
-                    Log.e("YourTag", "Google Sign-In Error: Account is null");
-                    Toast.makeText(this, "Google Sign-In Error: Account is null", Toast.LENGTH_SHORT).show();
-                }
+                firbaseAuth(account.getIdToken());
             } catch (ApiException e) {
                 // Handle specific Google Sign-In API exceptions
                 Log.e("YourTag", "Google Sign-In API Exception: " + e.getStatusCode());
@@ -109,7 +106,6 @@ public class LoginOption extends AppCompatActivity {
     }
 
 
-
     private void firbaseAuth(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
@@ -117,14 +113,16 @@ public class LoginOption extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            GoogleSignInAccount account = null;
-                            try {
-                                account = (GoogleSignInAccount) task.getResult(ApiException.class);
-                            } catch (ApiException e) {
-                                throw new RuntimeException(e);
-                            }
-                            saveUserDetails(account); // Save user details
-
+//                            GoogleSignInAccount account = null;
+//                            try {
+//                                account = (GoogleSignInAccount) task.getResult(ApiException.class);
+//                            } catch (ApiException e) {
+//                                throw new RuntimeException(e);
+//                            }
+                             // Save user details
+//                            FirebaseUser user = auth.getCurrentUser();
+                            saveUserDetails();
+//                            Log.e("YourTag", "Exception: " + user.getDisplayName());
                             Intent intent = new Intent(LoginOption.this, DisplayDetailsActivity.class);
                             startActivity(intent);
                         } else {
@@ -135,14 +133,15 @@ public class LoginOption extends AppCompatActivity {
     }
 
     // Define the saveUserDetails method here
-    private void saveUserDetails(GoogleSignInAccount account) {
+    private void saveUserDetails() {
+
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
+        FirebaseUser user = auth.getCurrentUser();
         // Store user details in SharedPreferences
-        editor.putString("FirstName", account.getGivenName().toString());
-        editor.putString("LastName", account.getFamilyName().toString());
-        editor.putString("Email", account.getEmail().toString());
+        editor.putString("FirstName", user.getDisplayName());
+//        editor.putString("LastName", account.getFamilyName().toString());
+//        editor.putString("Email", account.getEmail().toString());
         editor.putString("Age", "ife");
         editor.putString("Gender", "uifer");
         editor.putString("DOB", "ienrf");
