@@ -133,5 +133,13 @@
         android:textColor="#333333"
         android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:translationX="240dp"
+        android:translationY="180dp" />
+
 
 </LinearLayout>

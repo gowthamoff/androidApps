@@ -140,16 +140,16 @@ public class LoginOption extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         // Store user details in SharedPreferences
         editor.putString("FirstName", user.getDisplayName());
-//        editor.putString("LastName", account.getFamilyName().toString());
-//        editor.putString("Email", account.getEmail().toString());
-        editor.putString("Age", "ife");
-        editor.putString("Gender", "uifer");
-        editor.putString("DOB", "ienrf");
-        editor.putString("Password","ierf");
-        editor.putString("Phone","oeirf");
-        editor.putString("Address", "ermfer");
-        editor.putString("Pincode", "feifer");
-        editor.putString("State", "eiurfer");
+        editor.putString("LastName", user.getDisplayName());
+        editor.putString("Email", user.getEmail());
+        editor.putString("Age", "No Access");
+        editor.putString("Gender", "No Access");
+        editor.putString("DOB", "No Access");
+        editor.putString("Password","No Access");
+        editor.putString("Phone", "No Access");
+        editor.putString("Address", "No Access");
+        editor.putString("Pincode", "No Access");
+        editor.putString("State", "No Access");
 
 //        // Store the profile photo URL if available
 //        if (account.getPhotoUrl() != null) {
