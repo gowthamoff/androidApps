@@ -1,9 +1,11 @@
 package login.form;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +27,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView selectedImageView;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
+    private static final int CAMERA_PERMISSION_CODE = 100;
 
 //    Button googleAuth;
 //    FirebaseAuth auth;
@@ -71,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+        }
+
 //        googleAuth = findViewById(R.id.btnGoogleAuth);
 //        auth = FirebaseAuth.getInstance();
 //        database = FirebaseDatabase.getInstance();
@@ -85,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         // Set "ProfileImage" to an empty string by default
+
         editor.putString("ProfileImage", "");
         editor.apply();
 
@@ -251,33 +261,20 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(pickPhotoIntent, REQUEST_IMAGE_PICK);
     }
 
-public void takePhoto(View view) {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    public void takePhoto(View view) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        } else {
+            // Request camera permission
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
-
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-
-//            if(requestCode == RC_SIGN_IN)
-//            {
-//                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//                try {
-//                    GoogleSignInAccount account = task.getResult(ApiException.class);
-//                    firbaseAuth(account.getIdToken());
-//                } catch (ApiException e) {
-//                    // Handle specific Google Sign-In API exceptions
-//                    Log.e("YourTag", "Google Sign-In API Exception: " + e.getStatusCode());
-//                    Toast.makeText(this, "Google Sign-In Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    // Handle other exceptions
-//                    Log.e("YourTag", "Exception: " + e.getMessage(), e);
-//                    Toast.makeText(this, "An error occurred: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
 
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && data != null) {
@@ -304,6 +301,7 @@ public void takePhoto(View view) {
                     }
                 }
             }
+            
         }
     }
 
