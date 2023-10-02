@@ -39,12 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_PICK = 2;
     private static final int CAMERA_PERMISSION_CODE = 100;
 
-//    Button googleAuth;
-//    FirebaseAuth auth;
-//    FirebaseDatabase database;
-//    GoogleSignInClient mGoogleSignInClient;
-//    private static final int RC_SIGN_IN = 1000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,30 +54,11 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
 
-//        googleAuth = findViewById(R.id.btnGoogleAuth);
-//        auth = FirebaseAuth.getInstance();
-//        database = FirebaseDatabase.getInstance();
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail().build();
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-//        googleAuth.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                googleSignIn();
-//            }
-//        });
-        // Set "ProfileImage" to an empty string by default
-
         editor.putString("ProfileImage", "");
         editor.apply();
 
     }
 
-    //    private void googleSignIn(){
-//        Intent intent = mGoogleSignInClient.getSignInIntent();
-//        startActivityForResult(intent,RC_SIGN_IN);
-//    }
     private boolean areEditTextsEmpty() {
         EditText[] editTexts = {
                 findViewById(R.id.editfirst),
@@ -102,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 return true; // At least one EditText is empty
             }
         }
-
         return false;
     }
 
@@ -186,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("State", selectedState);
         editor.apply();
     }
-
-
     public void showDatePickerDialog(View view) {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -231,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         String imageBase64 = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-
         editor.putString("ProfileImage", imageBase64);
         editor.apply();
     }
@@ -285,26 +256,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-//    private void firbaseAuth(String idToken) {
-//        AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
-//        auth.signInWithCredential(credential)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task){
-//                        if(task.isSuccessful()){
-////                            FirebaseUser user = auth.getCurrentUser();
-////                            HashMap<String,Object> map = new HashMap<>();
-////                            map.put("id",user.getUid());
-////                            map.put("name",user.getDisplayName());
-////                            map.put("profile",user.getPhotoUrl().toString());
-////                            database.getReference().child("users").child(user.getUid()).setValue(map);
-//                            Intent intent = new Intent(MainActivity.this,GoogleActivity.class);
-//                            startActivity(intent);
-//                        }else{
-//                            Toast.makeText(MainActivity.this,"something went wrong ",Toast.LENGTH_SHORT).show();
-//                        }
-//                }
-//        });
-//    }
 }

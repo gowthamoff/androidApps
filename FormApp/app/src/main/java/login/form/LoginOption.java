@@ -48,20 +48,10 @@ public class LoginOption extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Launch MainActivity
-                Intent intent = new Intent(LoginOption.this,MainActivity.class);
+                Intent intent = new Intent(LoginOption.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
-
-//        googleButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Launch GoogleActivity
-//                Intent intent = new Intent(LoginOption.this, GoogleActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         googleAuth = findViewById(R.id.btnGoogleAuth);
         auth = FirebaseAuth.getInstance();
@@ -78,9 +68,9 @@ public class LoginOption extends AppCompatActivity {
         });
     }
 
-    private void googleSignIn(){
+    private void googleSignIn() {
         Intent intent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(intent,RC_SIGN_IN);
+        startActivityForResult(intent, RC_SIGN_IN);
     }
 
 
@@ -113,16 +103,7 @@ public class LoginOption extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            GoogleSignInAccount account = null;
-//                            try {
-//                                account = (GoogleSignInAccount) task.getResult(ApiException.class);
-//                            } catch (ApiException e) {
-//                                throw new RuntimeException(e);
-//                            }
-                             // Save user details
-//                            FirebaseUser user = auth.getCurrentUser();
                             saveUserDetails();
-//                            Log.e("YourTag", "Exception: " + user.getDisplayName());
                             Intent intent = new Intent(LoginOption.this, DisplayDetailsActivity.class);
                             startActivity(intent);
                         } else {
@@ -132,7 +113,6 @@ public class LoginOption extends AppCompatActivity {
                 });
     }
 
-    // Define the saveUserDetails method here
     private void saveUserDetails() {
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
@@ -145,93 +125,13 @@ public class LoginOption extends AppCompatActivity {
         editor.putString("Age", "No Access");
         editor.putString("Gender", "No Access");
         editor.putString("DOB", "No Access");
-        editor.putString("Password","No Access");
+        editor.putString("Password", "No Access");
         editor.putString("Phone", "No Access");
         editor.putString("Address", "No Access");
         editor.putString("Pincode", "No Access");
         editor.putString("State", "No Access");
 
-//        // Store the profile photo URL if available
-//        if (account.getPhotoUrl() != null) {
-//            editor.putString("PhotoURL", account.getPhotoUrl().toString());
-//        } else {
-//            editor.putString("PhotoURL", ""); // Set an empty string if there's no photo URL
-//        }
-
-        // Add more attributes as needed
 
         editor.apply();
     }
-
-
-//    private void firbaseAuth(String idToken) {
-//        AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
-//        auth.signInWithCredential(credential)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task){
-//                        if(task.isSuccessful()){
-////                            FirebaseUser user = auth.getCurrentUser();
-////                            HashMap<String,Object> map = new HashMap<>();
-////                            map.put("id",user.getUid());
-////                            map.put("name",user.getDisplayName());
-////                            map.put("profile",user.getPhotoUrl().toString());
-////                            database.getReference().child("users").child(user.getUid()).setValue(map);
-//                            Intent intent = new Intent(LoginOption.this,DisplayDetailsActivity.class);
-//                            startActivity(intent);
-//                        }else{
-//                            Toast.makeText(LoginOption.this,"something went wrong ",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
-
-//    private void saveUserDetails(String firstName, String lastName, String age, String gender, String dob, String email, String password, String phone, String address, String pincode, String selectedState) {
-//        SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//        // Store user details in SharedPreferences
-//        editor.putString("FirstName", firstName);
-//        editor.putString("LastName", lastName);
-//        editor.putString("Age", age);
-//        editor.putString("Gender", gender);
-//        editor.putString("DOB", dob);
-//        editor.putString("Email", email);
-//        editor.putString("Password", password);
-//        editor.putString("Phone", phone);
-//        editor.putString("Address", address);
-//        editor.putString("Pincode", pincode);
-//        editor.putString("State", selectedState);
-//        editor.apply();
-//    }
-
-    // ... Other code
-
-//    private void firbaseAuth(String idToken) {
-//        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-//        auth.signInWithCredential(credential)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Retrieve user details
-//                            GoogleSignInAccount account = task.getResult(ApiException.class);
-//                            String firstName = account.getGivenName();
-//                            String lastName = account.getFamilyName();
-//                            String email = account.getEmail();
-//
-//                            // You may need to retrieve other user details from the account object
-//
-//                            // Call the method to save user details in SharedPreferences
-//                            saveUserDetails(firstName, lastName,);
-//
-//                            // Start the DisplayDetailsActivity
-//                            Intent intent = new Intent(LoginOption.this, DisplayDetailsActivity.class);
-//                            startActivity(intent);
-//                        } else {
-//                            Toast.makeText(LoginOption.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
 }
