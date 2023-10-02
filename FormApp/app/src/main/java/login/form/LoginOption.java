@@ -1,10 +1,12 @@
-package login.form;
-
-import android.annotation.SuppressLint;
+package login.form;import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 
 public class LoginOption extends AppCompatActivity {
 
@@ -73,7 +79,6 @@ public class LoginOption extends AppCompatActivity {
         startActivityForResult(intent, RC_SIGN_IN);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -82,7 +87,7 @@ public class LoginOption extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firbaseAuth(account.getIdToken());
+                firbaseAuth(account.getIdToken(), account.getPhotoUrl().toString()); // Pass the photo URL
             } catch (ApiException e) {
                 // Handle specific Google Sign-In API exceptions
                 Log.e("YourTag", "Google Sign-In API Exception: " + e.getStatusCode());
@@ -95,22 +100,59 @@ public class LoginOption extends AppCompatActivity {
         }
     }
 
-
-    private void firbaseAuth(String idToken) {
+    private void firbaseAuth(String idToken, final String photoUrl) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            LoadImage(photoUrl);
                             saveUserDetails();
-                            Intent intent = new Intent(LoginOption.this, DisplayDetailsActivity.class);
-                            startActivity(intent);
+                            int delayMillis = 1000;
+                            Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(LoginOption.this, DisplayDetailsActivity.class);
+                                    startActivity(intent);
+                                }
+                            }, delayMillis);
                         } else {
                             Toast.makeText(LoginOption.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private void LoadImage(String imageUrl) {
+        Log.d("LoadImage", "Loading image from URL: " + imageUrl);
+        // Use Glide to load and cache the image from the URL
+        Glide.with(this)
+                .asBitmap()
+                .load(imageUrl)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        // The image is loaded successfully into 'resource'
+                        // Save the loaded Bitmap to SharedPreferences
+                        saveBitmapToSharedPreferences(resource);
+                    }
+                });
+    }
+
+    private void saveBitmapToSharedPreferences(Bitmap bitmap) {
+        Log.d("saveBitmapToSharedPreferences", "Saving bitmap to SharedPreferences");
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Convert the bitmap to a Base64 string
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        String imageBase64 = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        editor.putString("ProfileImage", imageBase64);
+
+        editor.apply();
     }
 
     private void saveUserDetails() {
@@ -125,12 +167,11 @@ public class LoginOption extends AppCompatActivity {
         editor.putString("Age", "No Access");
         editor.putString("Gender", "No Access");
         editor.putString("DOB", "No Access");
-        editor.putString("Password", "No Access");
+        editor.putString("Password","No Access");
         editor.putString("Phone", "No Access");
         editor.putString("Address", "No Access");
         editor.putString("Pincode", "No Access");
         editor.putString("State", "No Access");
-
 
         editor.apply();
     }
