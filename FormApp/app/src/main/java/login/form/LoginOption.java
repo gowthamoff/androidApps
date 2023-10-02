@@ -1,4 +1,5 @@
 package login.form;import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,6 +42,7 @@ public class LoginOption extends AppCompatActivity {
     FirebaseDatabase database;
     GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1000;
+    private ProgressDialog progressDialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -49,6 +51,7 @@ public class LoginOption extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button registerButton = findViewById(R.id.registerButton);
+        progressDialog = new ProgressDialog(this);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +78,7 @@ public class LoginOption extends AppCompatActivity {
     }
 
     private void googleSignIn() {
+        progressDialog.show();
         Intent intent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
     }
@@ -106,6 +110,8 @@ public class LoginOption extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        // Dismiss the loading dialog when authentication is complete
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             LoadImage(photoUrl);
                             saveUserDetails();
