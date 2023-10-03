@@ -1,4 +1,6 @@
-package login.form;import android.annotation.SuppressLint;
+package login.form;
+
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +53,7 @@ public class LoginOption extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button registerButton = findViewById(R.id.registerButton);
+
         progressDialog = new ProgressDialog(this);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +176,7 @@ public class LoginOption extends AppCompatActivity {
         editor.putString("Age", "No Access");
         editor.putString("Gender", "No Access");
         editor.putString("DOB", "No Access");
-        editor.putString("Password","No Access");
+        editor.putString("Password", "No Access");
         editor.putString("Phone", "No Access");
         editor.putString("Address", "No Access");
         editor.putString("Pincode", "No Access");
