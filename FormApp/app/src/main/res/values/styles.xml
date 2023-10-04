@@ -5,5 +5,9 @@
     <style name="WhiteTheme" parent="Theme.AppCompat.Light">
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+    <style name="CustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/your_header_color</item>
+    </style>
+
 
 </resources>

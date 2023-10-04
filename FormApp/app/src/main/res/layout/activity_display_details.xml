@@ -137,7 +137,10 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#8949FB"
+        android:shadowRadius="10"
         android:text="Logout"
+        android:textColor="#FFFFFF"
         android:translationX="240dp"
         android:translationY="180dp" />
 
