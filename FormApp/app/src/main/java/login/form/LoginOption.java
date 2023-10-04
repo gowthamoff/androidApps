@@ -40,6 +40,7 @@ import java.io.ByteArrayOutputStream;
 public class LoginOption extends AppCompatActivity {
 
     Button googleAuth;
+    Button facebookAuth;
     FirebaseAuth auth;
     FirebaseDatabase database;
     GoogleSignInClient mGoogleSignInClient;
@@ -78,6 +79,17 @@ public class LoginOption extends AppCompatActivity {
                 googleSignIn();
             }
         });
+
+        facebookAuth = findViewById(R.id.btnFbAuth);
+        facebookAuth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginOption.this, FaceBookActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void googleSignIn() {
