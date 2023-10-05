@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:padding="16dp">
 
     <LinearLayout
@@ -11,13 +12,13 @@
         android:orientation="vertical">
 
 
-
         <TextView
             android:id="@+id/txtheading"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
             android:text="REGISTRATION FORM"
+            android:textColor="#5E35B1"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -25,19 +26,22 @@
             android:id="@+id/txtfirst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Name" />
+            android:text="First Name"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editfirst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your first name" />
+            android:hint="Enter your first name"
+            android:textColor="#070015" />
 
         <TextView
             android:id="@+id/txtlast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Last Name" />
+            android:text="Last Name"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editlast"
@@ -49,7 +53,8 @@
             android:id="@+id/txtgender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gender" />
+            android:text="Gender"
+            android:textColor="#5E35B1" />
 
         <RadioGroup
             android:id="@+id/genderRadioGroup"
@@ -74,7 +79,8 @@
             android:id="@+id/txtage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Age" />
+            android:text="Age"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editage"
@@ -88,7 +94,8 @@
             android:id="@+id/txtdob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date of Birth" />
+            android:text="Date of Birth"
+            android:textColor="#5E35B1" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,7 +104,7 @@
 
             <TextView
                 android:id="@+id/dateTextView"
-                android:layout_width="0dp"
+                android:layout_width="243dp"
                 android:layout_height="38dp"
                 android:layout_weight="1"
                 android:clickable="true"
@@ -110,8 +117,10 @@
                 android:id="@+id/datePickerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
+                android:background="@drawable/mybutton"
                 android:onClick="showDatePickerDialog"
-                android:text="Pick Date" />
+                android:text="Pick Date"
+                android:textColor="#FFFDFD" />
         </LinearLayout>
 
 
@@ -119,7 +128,8 @@
             android:id="@+id/txtemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email Address" />
+            android:text="Email Address"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editemail"
@@ -132,7 +142,8 @@
             android:id="@+id/txtpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password" />
+            android:text="Password"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editpassword"
@@ -147,7 +158,8 @@
             android:id="@+id/txtcnfpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm Password" />
+            android:text="Confirm Password"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editcnfpassword"
@@ -161,7 +173,8 @@
             android:id="@+id/txtphone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Phone Number" />
+            android:text="Phone Number"
+            android:textColor="#5E35B1" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,7 +203,8 @@
             android:id="@+id/txtaddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Address" />
+            android:text="Address"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editaddress"
@@ -204,7 +218,8 @@
             android:id="@+id/txtstate"
             android:layout_width="match_parent"
             android:layout_height="31dp"
-            android:text="State" />
+            android:text="State"
+            android:textColor="#5E35B1" />
 
         <Spinner
             android:id="@+id/state"
@@ -217,7 +232,8 @@
             android:id="@+id/txtpincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pincode" />
+            android:text="Pincode"
+            android:textColor="#5E35B1" />
 
         <EditText
             android:id="@+id/editpincode"
@@ -231,7 +247,8 @@
             android:id="@+id/txthobbies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hobbies" />
+            android:text="Hobbies"
+            android:textColor="#5E35B1" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -261,7 +278,8 @@
             android:id="@+id/txtpicture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Profile Pic" />
+            android:text="Upload Profile Pic"
+            android:textColor="#5E35B1" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"
@@ -282,30 +300,41 @@
 
         <Button
             android:id="@+id/takephoto"
-            android:layout_width="wrap_content"
+            android:layout_width="146dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/mybutton"
             android:onClick="takePhoto"
-            android:text="Take Photo" />
+            android:text="Take Photo"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#7E51DC"
+            android:textColorLink="#BD9CFF" />
 
         <Button
             android:id="@+id/pickphoto"
-            android:layout_width="wrap_content"
+            android:layout_width="146dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/mybutton"
             android:onClick="pickFromGallery"
-            android:text="Pick from Gallery" />
+            android:text="Pick from Gallery"
+            android:textColor="#FFFFFF" />
 
         <CheckBox
             android:id="@+id/allacceptbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="All the entered details are correct" />
+            android:text="All the entered details are correct"
+            android:textColor="#5E35B1"
+            android:textColorHighlight="#C4A7FF"
+            android:textColorLink="#CBB1FF" />
 
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/mybutton"
             android:onClick="register"
-            android:text="Register" />
+            android:text="Register"
+            android:textColor="#FFFFFF" />
 
         <!--    <Button-->
         <!--        android:id="@+id/reset"-->

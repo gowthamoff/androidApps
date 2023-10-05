@@ -137,7 +137,7 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#8949FB"
+        android:background="@drawable/mybutton"
         android:shadowRadius="10"
         android:text="Logout"
         android:textColor="#FFFFFF"

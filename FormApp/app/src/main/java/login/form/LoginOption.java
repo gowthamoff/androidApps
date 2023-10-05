@@ -13,6 +13,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,8 +41,8 @@ import java.io.ByteArrayOutputStream;
 
 public class LoginOption extends AppCompatActivity {
 
-    Button googleAuth;
-    Button facebookAuth;
+    ImageView googleAuth;
+    ImageView facebookAuth;
     FirebaseAuth auth;
     FirebaseDatabase database;
     GoogleSignInClient mGoogleSignInClient;
