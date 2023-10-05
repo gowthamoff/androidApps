@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -48,7 +49,7 @@ public class LoginOption extends AppCompatActivity {
     FirebaseDatabase database;
     GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1000;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
     ProgressBar progressBar2;
 
     @SuppressLint("MissingInflatedId")
@@ -58,7 +59,7 @@ public class LoginOption extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         progressBar2 = findViewById(R.id.progressBar);
         progressBar2.setVisibility(View.INVISIBLE);
-
+//        progressBar2.getProgressDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
         Button registerButton = findViewById(R.id.registerButton);
 
 //        progressDialog = new ProgressDialog(this);
