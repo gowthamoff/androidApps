@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -44,7 +45,8 @@ public class FaceBookActivity extends LoginOption {
 
         callbackManager = CallbackManager.Factory.create();
 
-//        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -74,6 +76,7 @@ public class FaceBookActivity extends LoginOption {
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
+        progressBar.setVisibility(View.VISIBLE);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,16 +49,19 @@ public class LoginOption extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1000;
     private ProgressDialog progressDialog;
+    ProgressBar progressBar2;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        progressBar2 = findViewById(R.id.progressBar);
+        progressBar2.setVisibility(View.INVISIBLE);
 
         Button registerButton = findViewById(R.id.registerButton);
 
-        progressDialog = new ProgressDialog(this);
+//        progressDialog = new ProgressDialog(this);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +99,8 @@ public class LoginOption extends AppCompatActivity {
     }
 
     private void googleSignIn() {
-        progressDialog.show();
+//        progressDialog.show();
+        progressBar2.setVisibility(View.VISIBLE);
         Intent intent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
     }
@@ -128,7 +133,7 @@ public class LoginOption extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // Dismiss the loading dialog when authentication is complete
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             LoadImage(photoUrl);
                             saveUserDetails();
