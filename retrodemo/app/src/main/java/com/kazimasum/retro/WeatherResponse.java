@@ -9,14 +9,6 @@ public class WeatherResponse {
     @SerializedName("current")
     private CurrentWeather currentWeather;
 
-//    public LocationData getLocationData() {
-//        return locationData;
-//    }
-//
-//    public void setLocationData(LocationData locationData) {
-//        this.locationData = locationData;
-//    }
-
     public CurrentWeather getCurrentWeather() {
         return currentWeather;
     }
